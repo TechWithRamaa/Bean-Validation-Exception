@@ -1,4 +1,4 @@
-package com.engineeringwithramaa.beanvalidationandexceptionhandling.exception;
+package com.engineeringwithramaa.beanvalidationandexceptionhandling.advice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,6 +20,14 @@ public class ApplicationExceptionHandler {
             errorMap.put(error.getField(), error.getDefaultMessage());
         });
 
+        return errorMap;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler
+    public Map<String, String> UserNotFoundException(Exception exception) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("Error Message - ", exception.getMessage());
         return errorMap;
     }
 }

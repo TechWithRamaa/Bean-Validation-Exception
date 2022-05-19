@@ -2,6 +2,7 @@ package com.engineeringwithramaa.beanvalidationandexceptionhandling.service;
 
 import com.engineeringwithramaa.beanvalidationandexceptionhandling.dto.UserRequest;
 import com.engineeringwithramaa.beanvalidationandexceptionhandling.entity.User;
+import com.engineeringwithramaa.beanvalidationandexceptionhandling.exception.UserNotFoundException;
 import com.engineeringwithramaa.beanvalidationandexceptionhandling.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUser(int id) {
-        return userRepository.findByUserId(id);
+    public User getUser(int id) throws UserNotFoundException {
+        User user = userRepository.findByUserId(id);
+        if(user!=null)
+            return user;
+        else
+            throw new UserNotFoundException("User not found for id - " + id);
     }
 }

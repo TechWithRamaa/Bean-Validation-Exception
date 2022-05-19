@@ -3,6 +3,7 @@ package com.engineeringwithramaa.beanvalidationandexceptionhandling.controller;
 
 import com.engineeringwithramaa.beanvalidationandexceptionhandling.dto.UserRequest;
 import com.engineeringwithramaa.beanvalidationandexceptionhandling.entity.User;
+import com.engineeringwithramaa.beanvalidationandexceptionhandling.exception.UserNotFoundException;
 import com.engineeringwithramaa.beanvalidationandexceptionhandling.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
 @RestController
@@ -30,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable int id) {
+    public ResponseEntity<User> getUser(@PathVariable int id) throws UserNotFoundException {
         return ResponseEntity.ok(userService.getUser(id));
     }
 }
